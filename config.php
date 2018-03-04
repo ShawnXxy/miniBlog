@@ -1,11 +1,26 @@
 <?php
     // Define DB Params
     define("DB_HOST", "localhost");
-    define("DB_USER", "shawnxxy");
-    define("DB_PASS", "XXy@88831");
-    define("DB_NAME", "shawnxxy_shareboard");
+    define("DB_USER", "");
+    define("DB_PASS", "");
+    define("DB_NAME", "test");
+
+    $db = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+
+    //Drop table if they exists
+    $sql = "DROP TABLE IF EXISTS shares;";
+    mysqli_query($db, $sql);
+    $sql = "DROP TABLE IF EXISTS shares_users;";
+    mysqli_query($db, $sql);
+
+    //Create table
+    $sql = "CREATE TABLE shares_users (id INT(11) UNSIGNED AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, register_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (id));";
+    mysqli_query($db, $sql);
+
+    $sql = "CREATE TABLE shares (id INT(11) UNSIGNED AUTO_INCREMENT NOT NULL, user_id INT(11) UNSIGNED NOT NULL, title VARCHAR(255) NOT NULL, body TEXT NOT NULL, link VARCHAR(255) NOT NULL, create_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (id), FOREIGN KEY (user_id) REFERENCES shares_users(id));";
+    mysqli_query($db, $sql);
 
     // Define URL
-    define("ROOT_PATH", "/proj2/");
-    define("ROOT_URL", "/proj2/");
+    define("ROOT_PATH", "/miniBlog/");
+    define("ROOT_URL", "http://localhost:8081/miniBlog/");
 ?>

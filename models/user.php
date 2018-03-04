@@ -19,7 +19,7 @@
 				}
 
 				// Insert into MySQL
-				$this->query('INSERT INTO users (name, email, password) VALUES(:name, :email, :password)');
+				$this->query('INSERT INTO shares_users (name, email, password) VALUES(:name, :email, :password)');
 				$this->bind(':name', $post['name']);
 				$this->bind(':email', $post['email']);
 				$this->bind(':password', $password);
@@ -46,7 +46,7 @@
 
 			if($post['submit']) {
 				// Compare Login info with SQL database
-				$this->query('SELECT * FROM users WHERE email = :email AND password = :password');
+				$this->query('SELECT * FROM shares_users WHERE email = :email AND password = :password');
 				//data binding
 				$this->bind(':email', $post['email']);
 				$this->bind(':password', $password);
